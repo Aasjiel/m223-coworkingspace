@@ -3,6 +3,7 @@ package ch.zli.m223.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -33,8 +34,11 @@ public class RoleController {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Index one Roles", description = "Returns a Roles.")
     @Path("/{id}")
-    public List<Role> index(Long id) {   
-            return List.of(roleService.getRoleById(id));
+    public Role index(Long id) {   
+        if(roleService.getRoleById(id) != null) {
+            return roleService.getRoleById(id);
+        } 
+        throw new BadRequestException();
     }
 
     @POST

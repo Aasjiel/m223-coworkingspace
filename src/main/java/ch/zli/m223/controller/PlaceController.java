@@ -3,6 +3,7 @@ package ch.zli.m223.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -33,8 +34,11 @@ public class PlaceController {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Index one Places", description = "Returns a Places.")
     @Path("/{id}")
-    public List<Place> index(Long id) {   
-            return List.of(placeService.getPlaceById(id));
+    public Place index(Long id) {   
+            if(placeService.getPlaceById(id) != null) {
+                return placeService.getPlaceById(id);
+            } 
+            throw new BadRequestException();
     }
 
     @POST

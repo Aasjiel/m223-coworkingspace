@@ -3,6 +3,7 @@ package ch.zli.m223.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -33,8 +34,11 @@ public class BookingController {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Index one Bookings", description = "Returns a Bookings.")
     @Path("/{id}")
-    public List<Booking> index(Long id) {   
-            return List.of(bookingService.getBookingById(id));
+    public Booking index(Long id) {   
+            if(bookingService.getBookingById(id) != null) {
+                return bookingService.getBookingById(id);
+            } 
+            throw new BadRequestException();
     }
 
     @POST

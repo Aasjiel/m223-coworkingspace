@@ -56,6 +56,10 @@ public class PlaceController {
     }
 
     @PUT
+    @Operation(
+        summary = "Updates a Place",
+        description = "Updates a specified Place and returns not a single thing"
+    )
     @Path("/{id}")
     public void update(Long id, Place place){
         place.setId(id);

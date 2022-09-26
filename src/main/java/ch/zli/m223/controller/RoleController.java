@@ -56,6 +56,10 @@ public class RoleController {
     }
 
     @PUT
+    @Operation(
+        summary = "Updates a Role",
+        description = "Updates a role specified by the id"
+    )
     @Path("/{id}")
     public void update(Long id, Role role){
         role.setId(id);

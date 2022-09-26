@@ -56,6 +56,10 @@ public class UserController {
     }
 
     @PUT
+    @Operation(
+        summary = "Updates a User",
+        description = "Updates a user specified by the id"
+    )
     @Path("/{id}")
     public void update(Long id, User user){
         user.setId(id);

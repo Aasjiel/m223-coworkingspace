@@ -15,7 +15,7 @@ public class Role {
     @Schema(readOnly = true)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     public Long getId() {

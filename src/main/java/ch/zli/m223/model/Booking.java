@@ -18,17 +18,17 @@ public class Booking {
     @Schema(readOnly = true)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private Date date;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime startTime;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime endTime;
 
-    @Column
-    private boolean approved;
+    @Column(nullable = false)
+    private boolean approved = false;
 
     public Long getId() {
         return id;

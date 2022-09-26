@@ -15,19 +15,19 @@ public class User {
     @Schema(readOnly = true)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String firstname;
 
-    @Column
+    @Column(nullable = false)
     private String lastname;
 
-    @Column
+    @Column(nullable = false)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private String username;
 
-    @Column
+    @Column(nullable = false)
     private String password;
 
     public Long getId() {

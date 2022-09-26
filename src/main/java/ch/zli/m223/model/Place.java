@@ -15,10 +15,10 @@ public class Place {
     @Schema(readOnly = true)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String location;
 
-    @Column
+    @Column(nullable = false)
     private int placeNumber;
 
     public Long getId() {

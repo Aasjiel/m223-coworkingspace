@@ -2,14 +2,21 @@ package ch.zli.m223.model;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Booking {
@@ -29,6 +36,14 @@ public class Booking {
 
     @Column(nullable = false)
     private boolean approved = false;
+
+    @ManyToOne
+    @JoinColumn(name="user")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name="place")
+    private Place place;
 
     public Long getId() {
         return id;
@@ -70,5 +85,20 @@ public class Booking {
         this.approved = approved;
     }
 
-    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
 }

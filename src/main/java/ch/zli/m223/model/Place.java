@@ -1,12 +1,19 @@
 package ch.zli.m223.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Place {
@@ -20,6 +27,10 @@ public class Place {
 
     @Column(nullable = false)
     private int placeNumber;
+
+    @OneToMany(mappedBy = "place")
+    @JsonIgnore
+    private Set<Booking> bookings;
 
     public Long getId() {
         return id;
@@ -43,6 +54,14 @@ public class Place {
 
     public void setPlaceNumber(int placeNumber) {
         this.placeNumber = placeNumber;
+    }
+
+    public Set<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     

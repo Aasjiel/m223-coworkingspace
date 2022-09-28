@@ -2,7 +2,9 @@ package ch.zli.m223.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolationException;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -12,6 +14,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 
@@ -34,22 +38,28 @@ public class RoleController {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Index one Roles", description = "Returns a Roles.")
     @Path("/{id}")
-    public Role index(Long id) {   
-        if(roleService.getRoleById(id) != null) {
-            return roleService.getRoleById(id);
+    public Response index(Long id) {   
+        if(id > 0 && roleService.getRoleById(id) != null) {
+            return Response.ok(roleService.getRoleById(id)).build();
         } 
-        throw new BadRequestException();
+        return Response.status(Status.BAD_REQUEST).entity("you need to provide an id").build();
     }
 
     @POST
+    @RolesAllowed("Admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "Creates a new Roles.", description = "Creates a new Roles and returns the newly added entry.")
-    public Role create(Role role) {
-       return roleService.createRole(role);
+    public Response create(Role role) {
+       try {
+        return Response.ok(roleService.createRole(role)).build();
+    } catch (ConstraintViolationException e) {
+        return Response.status(Status.BAD_REQUEST).entity(e.getConstraintViolations().toString()).build();
+    }
     }
 
     @DELETE
+    @RolesAllowed("Admin")
     @Operation(
         summary = "Deletes a Roles",
         description = "Deletes a specified Roles and returns not a single thing"
@@ -60,6 +70,7 @@ public class RoleController {
     }
 
     @PUT
+    @RolesAllowed("Admin")
     @Operation(
         summary = "Updates a Role",
         description = "Updates a role specified by the id"

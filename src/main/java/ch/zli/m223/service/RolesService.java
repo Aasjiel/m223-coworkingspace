@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import ch.zli.m223.model.Role;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 @ApplicationScoped
 public class RolesService {
@@ -14,7 +15,7 @@ public class RolesService {
     private EntityManager entityManager;
 
     @Transactional
-    public Role createRole(Role role) {
+    public Role createRole(@Valid Role role) {
         entityManager.persist(role);
         return role;
     }

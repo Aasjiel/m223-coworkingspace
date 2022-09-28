@@ -31,6 +31,7 @@ public class AuthorizationController {
             String token =
             Jwt.issuer("https://example.com/issuer") 
              .upn(user.getUsername()) 
+             .expiresIn(Integer.MAX_VALUE)
              .groups(user.getRole().getName()) 
              .claim("username", user.getUsername())
              .claim("id", user.getId())

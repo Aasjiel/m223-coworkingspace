@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import ch.zli.m223.model.Place;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 @ApplicationScoped
 public class PlaceService {
@@ -14,7 +15,7 @@ public class PlaceService {
     private EntityManager entityManager;
 
     @Transactional
-    public Place createPlace(Place place) {
+    public Place createPlace(@Valid Place place) {
         entityManager.persist(place);
         return place;
     }

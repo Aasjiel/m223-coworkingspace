@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
@@ -24,6 +26,7 @@ public class Place {
     private String location;
 
     @Column(nullable = false)
+    @Min(message="Placenumber must not be empty", value=1)
     private int placeNumber;
 
     @OneToMany(mappedBy = "place")

@@ -6,11 +6,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import java.util.Arrays;
-import java.util.HashSet;
-
-import org.eclipse.microprofile.jwt.Claims;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import io.smallrye.jwt.build.Jwt;
 
@@ -28,18 +25,18 @@ public class AuthorizationController {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/login")
-    public String login(LoginData loginData) {
+    public Response login(LoginData loginData) {
         User user = authorizationService.getUserByUsername(loginData.getUsername());
         if (user.getPassword().equals(loginData.getPassword())){
             String token =
             Jwt.issuer("https://example.com/issuer") 
-             .upn("jdoe@quarkus.io") 
-             .groups(new HashSet<>(Arrays.asList("User", "Admin"))) 
-             .claim("username", user.getUsername()) 
+             .upn(user.getUsername()) 
+             .groups(user.getRole().getName()) 
+             .claim("username", user.getUsername())
+             .claim("id", user.getId())
             .sign();
-            System.out.println(token);
-            return "Your Login was successful";
+            return Response.ok(token).build();
         }
-        return "";
+        return Response.status(Status.BAD_REQUEST).entity("wrong credentials").build();
     }
 }

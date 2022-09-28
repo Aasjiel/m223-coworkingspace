@@ -92,7 +92,6 @@ public class User {
     }
 
     public void setPassword(String password) {
-        // TODO: hash password withd with sha512
         this.password = password;
     }
 

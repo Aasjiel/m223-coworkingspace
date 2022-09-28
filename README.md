@@ -2,6 +2,9 @@
 
 Coworkingspace ist eine api, bei der man sich als user registrieren und buchungen erstellen kann.
 
+# [Repository](https://github.com/Aasjiel/m223-coworkingspace/)
+https://github.com/Aasjiel/m223-coworkingspace/
+
 ## Erste Schritte
 
 1. Erstelle eine Kopie (fork) von diesem Projekt.
@@ -28,4 +31,19 @@ Die Daten werden in einer PostgreSQL-Datenbank gespeichert. In der Entwicklungsu
 
 ## Automatische Tests
 
-Die automatischen Tests können mit `./mvnw quarkus:test` ausgeführt werden. Für die automatischen Tests wird nicht die PostgreSQL-Datenbank verwendet, sondern eine H2-Datenbank, welche sich im Arbeitsspeicher während der Ausführung befindet.
+Die automatischen Tests können mit `./mvnw quarkus:test` ausgeführt werden. Für die automatischen Tests wird 
+die PostgreSQL-Datenbank verwendet. Testdaten werden von `import.sql` geladen.
+
+## Zugansdaten
+### Login at
+http://localhost:8080/auth/login
+
+### Admin
+username: zuckermans
+
+password: admin1234
+
+### Mitglied
+username: spatzj
+
+password: 1234

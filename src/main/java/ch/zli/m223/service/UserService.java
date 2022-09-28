@@ -6,6 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import ch.zli.m223.model.User;
 
@@ -15,7 +16,7 @@ public class UserService {
     private EntityManager entityManager;
 
     @Transactional
-    public User createUser(User user) {
+    public User createUser(@Valid User user) {
         entityManager.persist(user);
         return user;
     }
